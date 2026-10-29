@@ -1,6 +1,7 @@
 #include "DxLib.h"
 #include "Title.h"
 #include "../SceneManager.h"
+#include "../../Input/Input.h"
 #include <math.h>
 
 #define TITLE_POS_X (600)
