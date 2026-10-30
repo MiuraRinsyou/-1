@@ -30,7 +30,7 @@ void FinMap()
 {
 }
 
-void ChecckMapPlayerCollision()
+void CheckMapPlayerCollision()
 {
 	PlayerData player = GetPlayer();
 

@@ -31,6 +31,9 @@
     <Filter Include="Source\Scene\GameOver">
       <UniqueIdentifier>{56cee8a6-f7a4-426d-82bb-b1bb63fbe247}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Camera">
+      <UniqueIdentifier>{664c4f86-b9f7-44d3-bac5-0a6c36203516}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -65,6 +68,9 @@
     </ClCompile>
     <ClCompile Include="Source\Scene\GameOver\GameOver.cpp">
       <Filter>Source\Scene\GameOver</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Camera\Camera.cpp">
+      <Filter>Source\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +109,9 @@
     </ClInclude>
     <ClInclude Include="Source\Scene\GameOver\GameOver.h">
       <Filter>Source\Scene\GameOver</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Camera\Camera.h">
+      <Filter>Source\Camera</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

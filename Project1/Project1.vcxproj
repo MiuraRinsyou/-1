@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Camera\Camera.cpp" />
     <ClCompile Include="Source\Input\Input.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Map\Block.cpp" />
@@ -32,6 +33,7 @@
     <ClCompile Include="Source\Scene\Title\Title.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Camera\Camera.h" />
     <ClInclude Include="Source\GameSetting\GameSetting.h" />
     <ClInclude Include="Source\Input\Input.h" />
     <ClInclude Include="Source\Map\Block.h" />
