@@ -1,4 +1,5 @@
 #include "Block.h"
+#include "../Camera/Camera.h"
 
 BlockData g_Blocks[BLOCK_MAX] = { 0 };
 int g_BlockHandle[BLOCK_TYPE_MAX] = { 0 };
@@ -31,14 +32,14 @@ void StepBlock()
 void DrawBlock()
 {
 	// スクロールのためカメラを取得
-	//CameraData camera = GetCamera();
+	CameraData camera = GetCamera();
 
 	BlockData* block = g_Blocks;
 	for (int i = 0; i < BLOCK_MAX; i++, block++)
 	{
 		if (block->active)
 		{
-			//DrawGraph((int)(block->pos.x - camera.posX), (int)(block->pos.y - camera.posY), block->handle, TRUE);
+			DrawGraph((int)(block->pos.x - camera.posX), (int)(block->pos.y - camera.posY), block->handle, TRUE);
 		}
 	}
 }
