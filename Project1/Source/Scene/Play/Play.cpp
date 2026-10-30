@@ -4,6 +4,7 @@
 #include "../../Player/Player.h"
 #include "../../Camera/Camera.h"
 
+#define BACK_GROUND_SPEED (-1.5f)
 
 void InitPlayScene()
 {
