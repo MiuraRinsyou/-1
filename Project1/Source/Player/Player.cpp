@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "../Input/Input.h"
 #include "../Camera/Camera.h"
+#include "../Collision/Collision.h"
 
 struct PlayerAnimationParam
 {
@@ -11,7 +12,7 @@ struct PlayerAnimationParam
 	int height;
 };
 
-const  PlayerAnimationParam PLAEYR_ANIM_PARAM[PLAYER_ANIM_MAX] =
+const  PlayerAnimationParam PLAYER_ANIM_PARAM[PLAYER_ANIM_MAX] =
 {
 	8, 4, 72, 72,
 	5, 8, 72, 72,
@@ -148,7 +149,7 @@ PlayerData* GetPlayer()
 	return &g_PlayerData;
 }
 
-void PlayerHitNormalBlock(MapChipData mapChipData)
+void PlayerHitNormalBlockX(MapChipData mapChipData)
 {
 	PlayerData player = g_PlayerData;
 	BlockData* block = mapChipData.data;
@@ -163,4 +164,97 @@ void PlayerHitNormalBlock(MapChipData mapChipData)
 	float x, y, w, h;
 	CalcBoxColision(player, x, y, w, h);
 
+	if (CheckSquareSquare(x + POS_OFFSET, y + POS_OFFSET, w - SIZE_OFFSET, h - SIZE_OFFSET,
+		block->pos.x, block->pos.y, MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
+	{
+		if (player.moveX > 0.0f)
+		{
+			g_PlayerData.posX -= (x + w) - block->pos.x;
+		}
+		else if (player.moveX < 0.0f)
+		{
+			g_PlayerData.posX += (block->pos.x + MAP_CHIP_WIDTH) - x;
+		}
+	}
+}
+
+void PlayerHitNormalBlockY(MapChipData mapChipData)
+{
+	PlayerData player = g_PlayerData;
+	BlockData* block = mapChipData.data;
+	const float POS_OFFSET = PLAYER_MAP_COLLISION_OFFSET;
+	const float SIZE_OFFSET = PLAYER_MAP_COLLISION_OFFSET * 2;
+
+	player.isTurn = g_PrevPlayerData.isTurn;
+
+	float x, y, w, h;
+	CalcBoxColision(player, x, y, w, h);
+	
+	if (CheckSquareSquare(x + POS_OFFSET, y + POS_OFFSET, w - SIZE_OFFSET, h - SIZE_OFFSET,
+		block->pos.x, block->pos.y, MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
+	{
+		g_PlayerData.moveY = 0.0f;
+
+		if (player.moveY > 0.0f)
+		{
+			g_PlayerData.posY -= (y + h) - block->pos.y;
+			g_PlayerData.isAir = false;
+		}
+		else if (player.moveY < 0.0f)
+		{
+			g_PlayerData.posY += (block->pos.y + MAP_CHIP_WIDTH) - y;
+		}
+	}
+}
+
+void StartPlayerAnimation(PlayerAnimationType anim)
+{
+	if (anim == g_PlayerData.playAnim)return;
+
+	g_PlayerData.playAnim = anim;
+
+	AnimationData* animData = &g_PlayerData.animation[anim];
+	PlayerAnimationParam animParam = PLAYER_ANIM_PARAM[anim];
+
+	StartAnimation(animData, g_PlayerData.posX, g_PlayerData.posY, animParam.interval, animParam.frameNum, animParam.width, animParam.height, true);
+}
+
+void UpdatePlayerAnimation()
+{
+	if (!g_PlayerData.isAir)
+	{
+		if (g_PlayerData.moveX < 0.0f || g_PlayerData.moveX>0.0f)
+		{
+			StartPlayerAnimation(PLAYER_ANIM_RUN);
+		}
+		else
+		{
+			StartPlayerAnimation(PLAYER_ANIM_IDLE);
+		}
+	}
+	else
+	{
+		if (g_PlayerData.moveY < 0.0f)
+		{
+			StartPlayerAnimation(PLAYER_ANIM_JUMP);
+		}
+		else if (g_PlayerData.moveY > 0.0f)
+		{
+			StartPlayerAnimation(PLAYER_ANIM_FALL);
+		}
+	}
+
+	PlayerAnimationType animType = g_PlayerData.playAnim;
+	AnimationData* animData = &g_PlayerData.animation[animType];
+	UpdateAnimation(animData);
+}
+
+void CalcBoxCollision(PlayerData player, float& x, float& y, float& w, float& h)
+{
+	x = player.isTurn ?
+		player.posX + PLAYER_WIDTH - player.boxCollision.posX - player.boxCollision.width :
+		player.posX + player.boxCollision.posX;
+	y = player.posY + player.boxCollision.posY;
+	w = player.boxCollision.width;
+	h = player.boxCollision.height;
 }
