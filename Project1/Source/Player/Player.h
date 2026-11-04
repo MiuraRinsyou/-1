@@ -27,7 +27,7 @@ struct PlayerData
 	float moveY;	// Y移動量
 	AnimationData animation[PLAYER_ANIM_MAX];	// アニメーション
 	PlayerAnimationType playAnim;				// 再生中のアニメーション
-	BoxCollision boxCollision;					// 矩形当たり判定
+	//BoxCollision boxCollision;					// 矩形当たり判定
 };
 
 void InitPlayer();

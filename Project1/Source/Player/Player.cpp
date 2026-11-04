@@ -2,6 +2,18 @@
 #include "Player.h"
 #include "../Input/Input.h"
 
+struct PlayerAnimationParam
+{
+	int interval;
+	int frameNum;
+	int width;
+	int height;
+};
+
+const  PlayerAnimationParam PLAEYR_ANIM_PARAM[PLAYER_ANIM_MAX]=
+{
+
+}
 // プレイヤーの性能
 #define PLAYER_DEFAULT_POS_X (100.0f)
 #define PLAYER_DEFAULT_POS_Y (600.0f)
