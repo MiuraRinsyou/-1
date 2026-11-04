@@ -37,6 +37,9 @@
     <Filter Include="Source\Animation">
       <UniqueIdentifier>{78c5751e-b5fa-4935-88be-b0fcd5fea534}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Collision">
+      <UniqueIdentifier>{37730779-e656-4c1f-be37-3642934fd5c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -77,6 +80,9 @@
     </ClCompile>
     <ClCompile Include="Source\Animation\Animation.cpp">
       <Filter>Source\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Collision\Collision.cpp">
+      <Filter>Source\Collision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -121,6 +127,9 @@
     </ClInclude>
     <ClInclude Include="Source\Animation\Animation.h">
       <Filter>Source\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Collision\Collision.h">
+      <Filter>Source\Collision</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
