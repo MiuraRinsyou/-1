@@ -16,14 +16,14 @@ void StepCamera()
 {
 	if (IsInputKey(KEY_D))
 	{
-		g_CameraData.pos.x += DEBUG_CAMERA_SPEED;
+		g_CameraData.posX += DEBUG_CAMERA_SPEED;
 	}
 }
 
 void DrawCamera()
 {
 
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "カメラの座標=[%f. %f]", g_CameraData.pos.x, g_CameraData.pos.y);
+	DrawFormatString(0, 0, GetColor(255, 255, 255), "カメラの座標=[%f. %f]", g_CameraData.posX, g_CameraData.posY);
 }
 
 CameraData GetCamera()

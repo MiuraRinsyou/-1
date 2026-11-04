@@ -40,7 +40,7 @@ void UpdatePlayer();
 void DrawPlayer();
 void FinPlayer();
 
-PlayerData* GetPlayer();
+PlayerData GetPlayer();
 
 void PlayerHitNormalBlockX(MapChipData mapChipData); 
 void PlayerHitNormalBlockY(MapChipData mapChipData);

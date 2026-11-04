@@ -144,9 +144,9 @@ void FinPlayer()
 	}
 }
 
-PlayerData* GetPlayer()
+PlayerData GetPlayer()
 {
-	return &g_PlayerData;
+	return g_PlayerData;
 }
 
 void PlayerHitNormalBlockX(MapChipData mapChipData)
