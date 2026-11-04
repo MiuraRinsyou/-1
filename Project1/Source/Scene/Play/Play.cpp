@@ -3,6 +3,7 @@
 #include "../../Map/MapManager.h"
 #include "../../Player/Player.h"
 #include "../../Camera/Camera.h"
+#include "../../Collision/Collision.h"
 
 #define BACK_GROUND_SPEED (-1.5f)
 
@@ -39,6 +40,8 @@ void StepPlayScene()
 void UpdatePlayScene()
 {
 	UpdatePlayer();
+
+	CheckCollision();
 }
 
 void DrawPlayScene()
