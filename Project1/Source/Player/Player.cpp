@@ -45,7 +45,7 @@ PlayerData g_PrevPlayerData = { 0 };
 
 void StartPlayerAnimation(PlayerAnimationType anim);
 void UpdatePlayerAnimation();
-void CalcBoxColision(PlayerData player, float& x, float& y, float& w, float& h);
+void CalcBoxCollision(PlayerData player, float& x, float& y, float& w, float& h);
 
 void InitPlayer()
 {
@@ -162,7 +162,7 @@ void PlayerHitNormalBlockX(MapChipData mapChipData)
 	player.posY = g_PrevPlayerData.isTurn;
 
 	float x, y, w, h;
-	CalcBoxColision(player, x, y, w, h);
+	CalcBoxCollision(player, x, y, w, h);
 
 	if (CheckSquareSquare(x + POS_OFFSET, y + POS_OFFSET, w - SIZE_OFFSET, h - SIZE_OFFSET,
 		block->pos.x, block->pos.y, MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
@@ -188,7 +188,7 @@ void PlayerHitNormalBlockY(MapChipData mapChipData)
 	player.isTurn = g_PrevPlayerData.isTurn;
 
 	float x, y, w, h;
-	CalcBoxColision(player, x, y, w, h);
+	CalcBoxCollision(player, x, y, w, h);
 	
 	if (CheckSquareSquare(x + POS_OFFSET, y + POS_OFFSET, w - SIZE_OFFSET, h - SIZE_OFFSET,
 		block->pos.x, block->pos.y, MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
