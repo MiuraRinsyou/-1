@@ -85,7 +85,9 @@ void DrawBackGround()
 		}
 	}
 	
-}void FinBackGround()
+}
+
+void FinBackGround()
 {
 	for (int i = 0; i < BACK_GROUND_LAYER_MAX; i++)
 	{
