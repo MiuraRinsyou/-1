@@ -34,6 +34,11 @@ void CreateMap()
 			VECTOR pos = VGet(j * MAP_CHIP_WIDTH, i * MAP_CHIP_HEIGHT, 0.0f);
 
 			g_MapChip[i][j].data = CreateBlock(type, pos);
+
+			g_MapChip[i][j].data = CreateBlock(type, pos);
+
+			printfDx("ê∂ê¨ X:%d Y:%d Type:%d\n",
+				j, i, type);
 		}
 	}
 }
