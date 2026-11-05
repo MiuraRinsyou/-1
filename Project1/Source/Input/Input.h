@@ -6,6 +6,7 @@ enum InputKey
 	KEY_LEFT = (1 << 1),	// 0x0000 0000 0010
 	KEY_RIGHT = (1 << 2),	// 0x0000 0000 0100
 	KEY_D = (1 << 3),
+	KEY_Z = (1 << 4), 
 };
 
 void InitInput();
