@@ -43,7 +43,7 @@ void CheckMapPlayerCollision()
 	int right = playerX + CHECK_ROUND_NUM;
 	int bottom = playerY + CHECK_ROUND_NUM;
 
-	for (int y = top; y <= right; y++)
+	for (int y = top; y <= bottom; y++)
 	{
 		if (y < 0 || y >= MAP_CHIP_Y_NUM)continue;
 
@@ -61,7 +61,7 @@ void CheckMapPlayerCollision()
 		}
 	}
 
-	for (int y = top; y = bottom; y++)
+	for (int y = top; y <= bottom; y++)
 	{
 		if (y < 0 || y >= MAP_CHIP_Y_NUM)continue;
 
