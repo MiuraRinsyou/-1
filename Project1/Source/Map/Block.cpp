@@ -32,7 +32,7 @@ void StepBlock()
 void DrawBlock()
 {
 	// スクロールのためカメラを取得
-	/*CameraData camera = GetCamera();
+	CameraData camera = GetCamera();
 
 	BlockData* block = g_Blocks;
 	for (int i = 0; i < BLOCK_MAX; i++, block++)
@@ -40,20 +40,6 @@ void DrawBlock()
 		if (block->active)
 		{
 			DrawGraph((int)(block->pos.x - camera.posX), (int)(block->pos.y - camera.posY), block->handle, TRUE);
-		}
-	}*/
-	BlockData* block = g_Blocks;
-
-	for (int i = 0; i < BLOCK_MAX; i++, block++)
-	{
-		if (block->active)
-		{
-			DrawGraph(
-				(int)block->pos.x,
-				(int)block->pos.y,
-				block->handle,
-				TRUE
-			);
 		}
 	}
 }
