@@ -1,5 +1,6 @@
 #include "DxLib.h"
 #include "GameClear.h"
+#include "../../BackGround/BackGround.h"
 #include "../../Input/Input.h"
 #include "../../Scene/SceneManager.h"
 #include <stdio.h>
@@ -10,7 +11,9 @@ int g_GameClearHandle = 0;
 
 void InitGameClearScene()
 {
-	
+	InitBackGround();
+
+	g_GameClearHandle = 0;
 }
 
 void LoadGameClearScene()
