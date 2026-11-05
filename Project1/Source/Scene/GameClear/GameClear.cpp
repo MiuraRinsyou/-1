@@ -18,7 +18,11 @@ void InitGameClearScene()
 
 void LoadGameClearScene()
 {
+	LoadBackGround("Data/Title/TitleBG.png", BACK_GROUND_LAYER_1);
+
 	SetBackGroundMove(BACK_GROUND_SPEED, 0.0f, BACK_GROUND_LAYER_1);
+
+	g_GameClearHandle = LoadGraph("Data/GameClear/GameClear.png");
 }
 
 void StartGameClearScene()
