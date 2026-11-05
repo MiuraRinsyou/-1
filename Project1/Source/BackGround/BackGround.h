@@ -14,4 +14,4 @@ void StepBackGround();
 void UpdateBackGround();
 void FinBackGround();
 
-void SetBakGroundMove(float moveX, float moveY, BackGroundLayer layer);
+void SetBackGroundMove(float moveX, float moveY, BackGroundLayer layer);
