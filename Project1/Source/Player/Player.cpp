@@ -61,7 +61,7 @@ void InitPlayer()
 		InitAnimation(&g_PlayerData.animation[i]);
 	}
 
-	//memset(&g_PlayerData.boxCollision, 0, sizeof(g_PlayerData.boxCollision));
+	memset(&g_PlayerData.boxCollision, 0, sizeof(g_PlayerData.boxCollision));
 }
 
 void LoadPlayer()
