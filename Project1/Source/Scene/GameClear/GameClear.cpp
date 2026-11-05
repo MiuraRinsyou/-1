@@ -18,6 +18,7 @@ void InitGameClearScene()
 
 void LoadGameClearScene()
 {
+	SetBackGroundMove(BACK_GROUND_SPEED, 0.0f, BACK_GROUND_LAYER_1);
 }
 
 void StartGameClearScene()
@@ -26,16 +27,31 @@ void StartGameClearScene()
 
 void StepGameClearScene()
 {
+	StepBackGround();
+
+	if (IsTriggerKey(KEY_Z))
+	{
+		ChangeScene(SCENE_TITLE);
+	}
 }
 
 void UpdateGameClearScene()
 {
+	UpdateBackGround();
 }
 
 void DrawGameClearScene()
 {
+	FinBackGround();
+
+	DrawGraph(560, 110, g_GameClearHandle, TRUE);
+
+
 }
 
 void FinGameClearScene()
 {
+	FinBackGround();
+
+	DeleteGraph(g_GameClearHandle);
 }
