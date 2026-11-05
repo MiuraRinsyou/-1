@@ -14,7 +14,7 @@ struct BackGroundData
 };
 BackGroundData g_BackGroundData[BACK_GROUND_LAYER_MAX] = { 0 };
 
-void InitbackGround()
+void InitBackGround()
 {
 	for (int i = 0; i < BACK_GROUND_LAYER_MAX; i++)
 	{
