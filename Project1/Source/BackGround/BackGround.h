@@ -12,6 +12,7 @@ void InitBackGround();
 void LoadBackGround(const char* path, BackGroundLayer layer);
 void StepBackGround();
 void UpdateBackGround();
+void DrawBackGround();
 void FinBackGround();
 
 void SetBackGroundMove(float moveX, float moveY, BackGroundLayer layer);
