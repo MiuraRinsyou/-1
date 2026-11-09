@@ -29,6 +29,10 @@ const  PlayerAnimationParam PLAYER_ANIM_PARAM[PLAYER_ANIM_MAX] =
 
 // ÉWÉÉÉìÉvóÕ
 #define PLAYER_JUMP_POWER (12.0f)
+
+#define PLAEYR_JAMP_HOLD_POWER (0.5f)
+
+#define PLAYER_JAMP_HOLD_TIME (20)
 // èdóÕ
 #define PLAYER_GRAVITY (0.4f)
 
@@ -42,6 +46,9 @@ const  PlayerAnimationParam PLAYER_ANIM_PARAM[PLAYER_ANIM_MAX] =
 
 PlayerData g_PlayerData = { 0 };
 PlayerData g_PrevPlayerData = { 0 };
+
+int g_JumpHoldCount = 0;
+bool g_IsJumpButtomHold = false;
 
 void StartPlayerAnimation(PlayerAnimationType anim);
 void UpdatePlayerAnimation();
@@ -104,9 +111,20 @@ void StepPlayer()
 		g_PlayerData.isTurn = false;
 	}
 
-	if (IsTriggerKey(KEY_SPACE))
+	if (IsTriggerKey(KEY_SPACE) && !g_PlayerData.isAir)
 	{
 		g_PlayerData.moveY = -PLAYER_JUMP_POWER;
+
+		g_PlayerData.isAir = true;
+
+		g_JumpHoldCount = 0;
+	}
+
+	else if (IsInputKey(KEY_SPACE) && g_PlayerData.moveY < 0.0f && g_JumpHoldCount < PLAYER_JAMP_HOLD_TIME)
+	{
+		g_PlayerData.moveY -= PLAYER_JAMP_HOLD_TIME;
+
+		g_JumpHoldCount++;
 	}
 }
 
