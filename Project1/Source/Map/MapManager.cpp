@@ -13,8 +13,10 @@ void InitMap()
 
 void LoadMap()
 {
-	LoadBlock();
 	LoadMapChipData();
+	
+	LoadBlock();
+
 
 }
 
