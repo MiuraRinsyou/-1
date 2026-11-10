@@ -44,3 +44,4 @@ PlayerData GetPlayer();
 
 void PlayerHitNormalBlockX(MapChipData mapChipData); 
 void PlayerHitNormalBlockY(MapChipData mapChipData);
+void PlayerHitSlope(MapChipType type, int tileX, int tileY);

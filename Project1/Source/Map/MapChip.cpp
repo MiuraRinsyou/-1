@@ -35,8 +35,6 @@ void CreateMap()
 
 			g_MapChip[i][j].data = CreateBlock(type, pos);
 
-			g_MapChip[i][j].data = CreateBlock(type, pos);
-
 			printfDx("ê∂ê¨ X:%d Y:%d Type:%d\n",
 				j, i, type);
 		}

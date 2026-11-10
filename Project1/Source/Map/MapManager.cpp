@@ -6,6 +6,34 @@
 
 #define CHECK_ROUND_NUM (2)
 
+float GetSlopeSurface(MapChipType type,
+	int tileX,
+	int tileY,
+	float worldX)
+{
+	float localX = worldX - tileX * MAP_CHIP_WIDTH;
+
+	if (localX < 0.0f)
+		localX = 0.0f;
+
+	if (localX > MAP_CHIP_WIDTH)
+		localX = MAP_CHIP_WIDTH;
+
+	float rate = localX / MAP_CHIP_WIDTH;
+
+	switch (type)
+	{
+	case SLOPE_RIGHT:
+		return tileY * MAP_CHIP_HEIGHT
+			+ MAP_CHIP_HEIGHT * (1.0f - rate);
+	case SLOPE_LEFT:
+		return tileY * MAP_CHIP_HEIGHT
+			+ MAP_CHIP_HEIGHT * rate;
+	}
+
+	return 0;
+}
+
 void InitMap()
 {
 	InitBlock();
@@ -78,6 +106,10 @@ void CheckMapPlayerCollision()
 			{
 			case NORMAL_BLOCK:
 				PlayerHitNormalBlockY(mapChipData);
+				break;
+			case SLOPE_RIGHT:
+			case SLOPE_LEFT:
+				PlayerHitSlope((MapChipType)mapChipData.mapChip), x, y);
 				break;
 			}
 		}

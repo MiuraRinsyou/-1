@@ -3,6 +3,7 @@
 #include "../Input/Input.h"
 #include "../Camera/Camera.h"
 #include "../Collision/Collision.h"
+#include "../Map/MapParameter.h"
 
 struct PlayerAnimationParam
 {
@@ -223,6 +224,11 @@ void PlayerHitNormalBlockY(MapChipData mapChipData)
 			g_PlayerData.posY += (block->pos.y + MAP_CHIP_WIDTH) - y;
 		}
 	}
+}
+
+void PlayerHitSlope(MapChipType type, int tileX, int tileY)
+{
+
 }
 
 void StartPlayerAnimation(PlayerAnimationType anim)

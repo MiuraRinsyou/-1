@@ -10,7 +10,12 @@
 enum MapChipType
 {
 	MAP_CHIP_NONE,
+	// í èÌÇÃìπ
 	NORMAL_BLOCK,
+	// âEéŒÇﬂÇÃç‚
+	SLOPE_RIGHT,
+	// ç∂éŒÇﬂÇÃç‚
+	SLOPE_LEFT,
 	BLOCK_TYPE_MAX,
 };
 
