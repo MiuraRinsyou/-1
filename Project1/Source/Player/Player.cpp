@@ -55,6 +55,29 @@ void StartPlayerAnimation(PlayerAnimationType anim);
 void UpdatePlayerAnimation();
 void CalcBoxCollision(PlayerData player, float& x, float& y, float& w, float& h);
 
+float GetSlopeSurfaceY(MapChipType type, int tileX, int tileY, float worldX)
+{
+	float localX = worldX - tileX * MAP_CHIP_WIDTH;
+	if (localX < 0.0f)
+		localX = 0.0f;
+
+	if (localX > MAP_CHIP_WIDTH)
+		localX = MAP_CHIP_WIDTH;
+
+	float rate = localX / MAP_CHIP_WIDTH;
+
+	switch (type)
+	{
+	case SLOPE_RIGHT:
+		return tileY * MAP_CHIP_HEIGHT
+			+ MAP_CHIP_HEIGHT * (1.0f - rate);
+	case SLOPE_LEFT:
+		return tileY * MAP_CHIP_HEIGHT
+			+ MAP_CHIP_HEIGHT * rate;
+	}
+}
+
+
 void InitPlayer()
 {
 	g_PlayerData.posX = PLAYER_DEFAULT_POS_X;
@@ -69,7 +92,15 @@ void InitPlayer()
 		InitAnimation(&g_PlayerData.animation[i]);
 	}
 
-	memset(&g_PlayerData.boxCollision, 0, sizeof(g_PlayerData.boxCollision));
+	//memset(&g_PlayerData.boxCollision, 0, sizeof(g_PlayerData.boxCollision));
+
+	g_PlayerData.boxCollision.posX = PLAYER_BOX_COLLISION_OFFSET_X;
+
+	g_PlayerData.boxCollision.posY = PLAYER_BOX_COLLISION_OFFSET_Y;
+
+	g_PlayerData.boxCollision.width = PLAYER_BOX_COLLISION_WIDTH;
+
+	g_PlayerData.boxCollision.height = PLAYER_BOX_COLLISION_HEIGHT;
 }
 
 void LoadPlayer()
@@ -228,7 +259,26 @@ void PlayerHitNormalBlockY(MapChipData mapChipData)
 
 void PlayerHitSlope(MapChipType type, int tileX, int tileY)
 {
+	PlayerData player = g_PlayerData;
 
+	float x, y, w, h;
+
+	CalcBoxCollision(player, x, y, w, h);
+
+	float footX = x + w / 2.0f;
+	float footY = y + h;
+
+	float tileLeft = tileX * MAP_CHIP_WIDTH;
+	float tileRight = tileRight + MAP_CHIP_WIDTH;
+
+	if (footX<tileLeft || footX>tileRight)
+		return;
+
+	float slopeY = GetSlopeSurfaceY(type, tileX, tileY, footX);
+
+	float prevFootY = prevY + prevH;
+
+	bool isGrounded=
 }
 
 void StartPlayerAnimation(PlayerAnimationType anim)
