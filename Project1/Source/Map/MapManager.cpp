@@ -109,7 +109,7 @@ void CheckMapPlayerCollision()
 				break;
 			case SLOPE_RIGHT:
 			case SLOPE_LEFT:
-				PlayerHitSlope((MapChipType)mapChipData.mapChip), x, y);
+				PlayerHitSlope((MapChipType)mapChipData.mapChip, x, y);
 				break;
 			}
 		}
