@@ -13,12 +13,17 @@ void InitBlock()
 		block->active = false;
 		block->pos = VGet(0.0f, 0.0f, 0.0f);
 		block->type = MAP_CHIP_NONE;
+		block->handle = 0;
 	}
 }
 
 void LoadBlock()
 {
 	g_BlockHandle[NORMAL_BLOCK] = LoadGraph("Data/Map/NormalBlock.png");
+
+	g_BlockHandle[SLOPE_RIGHT] = LoadGraph("Data/Map/SlopeRight.png");
+
+	g_BlockHandle[SLOPE_LEFT] = LoadGraph("Data/Map/SlopwLeft.png");
 }
 
 void StartBlock()
@@ -46,10 +51,22 @@ void DrawBlock()
 
 void FinBlock()
 {
+	for (int i = 0; i < BLOCK_TYPE_MAX; i++)
+	{
+		if (g_BlockHandle[i] != 0)
+		{
+			DeleteGraph(g_BlockHandle[i]);
+			g_BlockHandle[i] = 0;
+		}
+	}
 }
 
 BlockData* CreateBlock(MapChipType type, VECTOR pos)
 {
+	if (type <= MAP_CHIP_NONE || type >= BLOCK_TYPE_MAX)
+	{
+		return nullptr;
+	}
 	// 未使用のブロックを探す
 	BlockData* block = g_Blocks;
 	for (int i = 0; i < BLOCK_MAX; i++, block++)

@@ -86,6 +86,8 @@ void InitPlayer()
 	g_PlayerData.moveY = 0.0f;
 	g_PlayerData.active = false;
 	g_PlayerData.playAnim = PLAYER_ANIM_NONE;
+	g_PlayerData.isAir = true;
+	g_PlayerData.isTurn = false;
 
 	for (int i = 0; i < PLAYER_ANIM_MAX; i++)
 	{
@@ -152,7 +154,7 @@ void StepPlayer()
 		g_JumpHoldCount = 0;
 	}
 
-	else if (IsInputKey(KEY_SPACE) && g_PlayerData.moveY < 0.0f && g_JumpHoldCount < PLAYER_JAMP_HOLD_POWER)
+	else if (IsInputKey(KEY_SPACE) && g_PlayerData.moveY < 0.0f && g_JumpHoldCount < PLAYER_JAMP_HOLD_TIME)
 	{
 		g_PlayerData.moveY -= PLAYER_JAMP_HOLD_POWER;
 
