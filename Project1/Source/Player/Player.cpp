@@ -271,7 +271,7 @@ void PlayerHitSlope(MapChipType type, int tileX, int tileY)
 	float footY = y + h;
 
 	float tileLeft = tileX * MAP_CHIP_WIDTH;
-	float tileRight = tileRight + MAP_CHIP_WIDTH;
+	float tileRight = tileY + MAP_CHIP_WIDTH;
 
 	if (footX<tileLeft || footX>tileRight)
 		return;
@@ -280,6 +280,8 @@ void PlayerHitSlope(MapChipType type, int tileX, int tileY)
 
 	float prevX, prevY, prevW, prevH;
 
+	CalcBoxCollision(g_PrevPlayerData, prevX, prevY, prevW, prevH);
+	float prevFootX = prevX + prevW / 2.0f;
 	float prevFootY = prevY + prevH;
 
 	bool isGrounded = !g_PrevPlayerData.isAir;
