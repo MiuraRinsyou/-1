@@ -9,7 +9,7 @@
 
 enum MapChipType
 {
-	MAP_CHIP_NONE,
+	MAP_CHIP_NONE = 0,
 	// ’Êí‚Ì“¹
 	NORMAL_BLOCK,
 	// ‰EŽÎ‚ß‚Ìâ

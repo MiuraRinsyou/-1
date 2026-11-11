@@ -31,7 +31,7 @@ const  PlayerAnimationParam PLAYER_ANIM_PARAM[PLAYER_ANIM_MAX] =
 // ÉWÉÉÉìÉvóÕ
 #define PLAYER_JUMP_POWER (12.0f)
 
-#define PLAEYR_JAMP_HOLD_POWER (0.5f)
+#define PLAYER_JAMP_HOLD_POWER (0.5f)
 
 #define PLAYER_JAMP_HOLD_TIME (20)
 // èdóÕ
@@ -152,9 +152,9 @@ void StepPlayer()
 		g_JumpHoldCount = 0;
 	}
 
-	else if (IsInputKey(KEY_SPACE) && g_PlayerData.moveY < 0.0f && g_JumpHoldCount < PLAYER_JAMP_HOLD_TIME)
+	else if (IsInputKey(KEY_SPACE) && g_PlayerData.moveY < 0.0f && g_JumpHoldCount < PLAYER_JAMP_HOLD_POWER)
 	{
-		g_PlayerData.moveY -= PLAYER_JAMP_HOLD_TIME;
+		g_PlayerData.moveY -= PLAYER_JAMP_HOLD_POWER;
 
 		g_JumpHoldCount++;
 	}
@@ -209,7 +209,7 @@ void PlayerHitNormalBlockX(MapChipData mapChipData)
 	player.isTurn = g_PrevPlayerData.isTurn;
 
 	player.posX = g_PlayerData.posX;
-	player.posY = g_PrevPlayerData.isTurn;
+	player.posY = g_PrevPlayerData.posY;
 
 	float x, y, w, h;
 	CalcBoxCollision(player, x, y, w, h);
@@ -276,9 +276,22 @@ void PlayerHitSlope(MapChipType type, int tileX, int tileY)
 
 	float slopeY = GetSlopeSurfaceY(type, tileX, tileY, footX);
 
+	float prevX, prevY, prevW, prevH;
+
 	float prevFootY = prevY + prevH;
 
-	bool isGrounded=
+	bool isGrounded = !g_PrevPlayerData.isAir;
+
+	bool isLanding = g_PrevPlayerData.moveY >= 0.0f && prevFootY <= slopeY && footY >= slopeY;
+
+	if (isGrounded || isLanding)
+	{
+		g_PlayerData.posY += slopeY - footY;
+
+		g_PlayerData.moveY = 0.0f;
+
+		g_PlayerData.isAir = false;
+	}
 }
 
 void StartPlayerAnimation(PlayerAnimationType anim)
