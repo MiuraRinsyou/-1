@@ -284,7 +284,7 @@ void PlayerHitSlope(MapChipType type, int tileX, int tileY)
 	float prevFootX = prevX + prevW / 2.0f;
 	float prevFootY = prevY + prevH;
 
-	bool isGrounded = !g_PrevPlayerData.isAir;
+	bool isGrounded = !g_PrevPlayerData.isAir && g_PlayerData.moveY >= 0.0f;
 
 	bool isLanding = g_PrevPlayerData.moveY >= 0.0f && prevFootY <= slopeY && footY >= slopeY;
 
