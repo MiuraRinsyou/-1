@@ -23,7 +23,7 @@ void LoadBlock()
 
 	g_BlockHandle[SLOPE_RIGHT] = LoadGraph("Data/Map/SlopeRight.png");
 
-	g_BlockHandle[SLOPE_LEFT] = LoadGraph("Data/Map/SlopwLeft.png");
+	g_BlockHandle[SLOPE_LEFT] = LoadGraph("Data/Map/SlopeLeft.png");
 }
 
 void StartBlock()
