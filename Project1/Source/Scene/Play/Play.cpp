@@ -46,11 +46,11 @@ void UpdatePlayScene()
 
 void DrawPlayScene()
 {
+	DrawCamera();
+
 	DrawMap();
 
 	DrawPlayer();
-
-	DrawCamera();
 }
 
 void FinPlayScene()
