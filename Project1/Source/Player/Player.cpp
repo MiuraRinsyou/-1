@@ -271,7 +271,7 @@ void PlayerHitSlope(MapChipType type, int tileX, int tileY)
 	float footY = y + h;
 
 	float tileLeft = tileX * MAP_CHIP_WIDTH;
-	float tileRight = tileY + MAP_CHIP_WIDTH;
+	float tileRight = tileLeft + MAP_CHIP_WIDTH;
 
 	if (footX<tileLeft || footX>tileRight)
 		return;
