@@ -4,11 +4,14 @@
 #include "../../Player/Player.h"
 #include "../../Camera/Camera.h"
 #include "../../Collision/Collision.h"
+#include "../../BackGround/BackGround.h"
 
 #define BACK_GROUND_SPEED (-1.5f)
 
 void InitPlayScene()
 {
+	InitBackGround();	
+
 	InitPlayer();
 
 	InitMap();
@@ -18,6 +21,8 @@ void InitPlayScene()
 
 void LoadPlayScene()
 {
+	LoadBackGround("Data/Map/StageBG.png", BACK_GROUND_LAYER_1);
+
 	LoadPlayer();
 
 	LoadMap();
@@ -32,6 +37,8 @@ void StartPlayScene()
 
 void StepPlayScene()
 {
+	StepBackGround();
+
 	StepPlayer();
 
 	StepCamera();
@@ -39,6 +46,8 @@ void StepPlayScene()
 
 void UpdatePlayScene()
 {
+	UpdateBackGround();
+
 	UpdatePlayer();
 
 	CheckCollision();
@@ -46,6 +55,8 @@ void UpdatePlayScene()
 
 void DrawPlayScene()
 {
+	DrawBackGround();
+
 	DrawCamera();
 
 	DrawMap();
@@ -55,6 +66,8 @@ void DrawPlayScene()
 
 void FinPlayScene()
 {
+	FinBackGround();
+
 	FinMap();
 
 	FinPlayer();
