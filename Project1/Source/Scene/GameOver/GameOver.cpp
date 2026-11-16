@@ -21,7 +21,7 @@ void InitGameOverScene()
 
 void LoadGameOverScene()
 {
-	LoadBackGround("Data/Title/BG.png", BACK_GROUND_LAYER_1);
+	LoadBackGround("Data/Title/TitleBG.png", BACK_GROUND_LAYER_1);
 
 	SetBackGroundMove(BACK_GROUND_SPEED, 0.0f, BACK_GROUND_LAYER_1);
 
