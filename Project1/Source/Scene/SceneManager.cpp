@@ -4,9 +4,9 @@
 #include "GameClear/GameClear.h"
 #include "GameOver/GameOver.h"
 
-Scene g_NowScene = SCENE_PLAY;
+Scene g_NowScene = SCENE_TITLE;
 
-Scene g_NextScene = SCENE_TITLE;
+Scene g_NextScene = SCENE_PLAY;
 
 SceneState g_SceneState = SCENE_STATE_INIT;
 
