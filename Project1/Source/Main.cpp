@@ -39,11 +39,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		if (CheckHitKey(KEY_INPUT_ESCAPE))break;
 		
-		UpdateFPS();
+		//UpdateFPS();
 		
-		DrawFPS();
+		//DrawFPS();
 
-		FPSWait();
+		//FPSWait();
 
 		ScreenFlip();
 	}

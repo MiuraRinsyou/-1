@@ -65,23 +65,28 @@ void DrawBackGround()
 {
 	for (int i = 0; i < BACK_GROUND_LAYER_MAX; i++)
 	{
-		DrawGraph((int)g_BackGroundData[i].posX, (int)g_BackGroundData[i].posY, (int)g_BackGroundData->handle, TRUE);
+		if (g_BackGroundData[i].handle == 0)
+		{
+			continue;
+		}
+
+		DrawGraph((int)g_BackGroundData[i].posX, (int)g_BackGroundData[i].posY, g_BackGroundData[i].handle, TRUE);
 
 		if (g_BackGroundData[i].moveX < 0.0f)
 		{
-			DrawGraph((int)g_BackGroundData[i].posX + BACK_GROUND_WIDTH, (int)g_BackGroundData[i].posY, (int)g_BackGroundData[i].handle, TRUE);
+			DrawGraph((int)g_BackGroundData[i].posX + BACK_GROUND_WIDTH, (int)g_BackGroundData[i].posY, g_BackGroundData[i].handle, TRUE);
 		}
 		if (g_BackGroundData[i].moveX > 0.0f)
 		{
-			DrawGraph((int)g_BackGroundData[i].posX - BACK_GROUND_WIDTH, (int)g_BackGroundData[i].posY, (int)g_BackGroundData[i].handle, TRUE);
+			DrawGraph((int)g_BackGroundData[i].posX - BACK_GROUND_WIDTH, (int)g_BackGroundData[i].posY, g_BackGroundData[i].handle, TRUE);
 		}
 		if (g_BackGroundData[i].moveY > 0.0f)
 		{
-			DrawGraph((int)g_BackGroundData[i].posX, (int)g_BackGroundData[i].posY - BACK_GROUND_HEIGHT, (int)g_BackGroundData[i].handle, TRUE);
+			DrawGraph((int)g_BackGroundData[i].posX, (int)g_BackGroundData[i].posY - BACK_GROUND_HEIGHT, g_BackGroundData[i].handle, TRUE);
 		}
 		if (g_BackGroundData[i].moveY < 0.0f)
 		{
-			DrawGraph((int)g_BackGroundData[i].posX, (int)g_BackGroundData[i].posY + BACK_GROUND_HEIGHT, (int)g_BackGroundData[i].handle, TRUE);
+			DrawGraph((int)g_BackGroundData[i].posX, (int)g_BackGroundData[i].posY + BACK_GROUND_HEIGHT, g_BackGroundData[i].handle, TRUE);
 		}
 	}
 	
