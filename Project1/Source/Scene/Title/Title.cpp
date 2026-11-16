@@ -39,7 +39,6 @@ void LoadTitleScene()
 
 	SetBackGroundMove(BACK_GROUND_SPEED, 0.0f, BACK_GROUND_LAYER_1);
 
-	g_BGHandle = LoadGraph("Data/Title/TitleBG.png");
 	g_TitleHandle = LoadGraph("Data/Title/TitleText.png");
 	g_PressZKeyHandle = LoadGraph("Data/Title/TitlePressZKey.png");
 }
@@ -89,6 +88,7 @@ void FinTitleScene()
 {
 	FinBackGround();
 
+	DeleteGraph(g_BGHandle);
 	DeleteGraph(g_TitleHandle);
 	DeleteGraph(g_PressZKeyHandle);
 
