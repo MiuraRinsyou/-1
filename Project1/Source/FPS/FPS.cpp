@@ -42,7 +42,7 @@ void FPSWait()
 {
 	int takeTime = GetNowCount() - g_StartTime;
 
-	int waitTime = g_Count * 1000 * FPS - takeTime;
+	int waitTime = (g_Count * 1000 / FPS) - takeTime;
 
 	if (waitTime > 0)
 	{
