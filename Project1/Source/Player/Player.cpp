@@ -166,6 +166,7 @@ void UpdatePlayer()
 {
 	if (!g_PlayerData.active) return;
 
+
 	if (g_PlayerData.moveY<0.0f || g_PlayerData.moveY>PLAYER_GRAVITY)
 	{
 		g_PlayerData.isAir = true;
@@ -250,11 +251,13 @@ void PlayerHitNormalBlockY(MapChipData mapChipData)
 		if (player.moveY > 0.0f)
 		{
 			g_PlayerData.posY -= (y + h) - block->pos.y;
+			g_PlayerData.moveY = 0.0f;
 			g_PlayerData.isAir = false;
 		}
 		else if (player.moveY < 0.0f)
 		{
 			g_PlayerData.posY += (block->pos.y + MAP_CHIP_WIDTH) - y;
+			g_PlayerData.moveY = 0.0f;
 		}
 	}
 }

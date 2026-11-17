@@ -67,7 +67,7 @@ void CheckMapPlayerCollision()
 	PlayerData player = GetPlayer();
 
 	int playerX = (int)(player.posX / MAP_CHIP_WIDTH);
-	int playerY = (int)(player.posY + PLAYER_HEIGHT / MAP_CHIP_HEIGHT);
+	int playerY = (int)((player.posY + PLAYER_HEIGHT) / MAP_CHIP_HEIGHT);
 
 	int left = playerX - CHECK_ROUND_NUM;
 	int top = playerY - CHECK_ROUND_NUM;
