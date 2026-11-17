@@ -41,6 +41,7 @@
     <ClInclude Include="Source\BackGround\BackGround.h" />
     <ClInclude Include="Source\Camera\Camera.h" />
     <ClInclude Include="Source\Collision\Collision.h" />
+    <ClInclude Include="Source\Collision\CollisionParameter.h" />
     <ClInclude Include="Source\FPS\FPS.h" />
     <ClInclude Include="Source\GameSetting\GameSetting.h" />
     <ClInclude Include="Source\Input\Input.h" />

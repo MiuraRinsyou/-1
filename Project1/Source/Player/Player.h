@@ -1,7 +1,7 @@
 #pragma once
-#include "../Map/MapParameter.h"
 #include "../Animation/Animation.h"
 #include "../Collision/Collision.h"
+#include "../Collision/CollisionParameter.h"
 
 #define PLAYER_WIDTH (70.0f)
 #define PLAYER_HEIGHT (70.0f)
@@ -29,7 +29,8 @@ struct PlayerData
 	float moveY;	// Y移動量
 	AnimationData animation[PLAYER_ANIM_MAX];	// アニメーション
 	PlayerAnimationType playAnim;				// 再生中のアニメーション
-	BoxCollision boxCollision;					// 矩形当たり判定
+	BoxCollision boxCollision;			 // 矩形当たり判定
+	Body body;
 };
 
 void InitPlayer();

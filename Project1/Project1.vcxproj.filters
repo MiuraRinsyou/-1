@@ -149,5 +149,8 @@
     <ClInclude Include="Source\BackGround\BackGround.h">
       <Filter>Source\BackGround</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Collision\CollisionParameter.h">
+      <Filter>Source\Collision</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
