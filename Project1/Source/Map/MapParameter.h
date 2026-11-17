@@ -2,8 +2,8 @@
 #include "DxLib.h"
 
 #define BLOCK_MAX (2048)
-#define MAP_CHIP_X_NUM (64)
-#define MAP_CHIP_Y_NUM (18)
+#define MAP_CHIP_X_NUM (18)
+#define MAP_CHIP_Y_NUM (200)
 #define MAP_CHIP_WIDTH (50)
 #define MAP_CHIP_HEIGHT (50)
 
