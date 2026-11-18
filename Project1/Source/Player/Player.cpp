@@ -31,9 +31,11 @@ const  PlayerAnimationParam PLAYER_ANIM_PARAM[PLAYER_ANIM_MAX] =
 // ジャンプ力
 #define PLAYER_JUMP_POWER (12.0f)
 
-#define PLAYER_JAMP_HOLD_POWER (0.5f)
+#define PLAYER_JUMP_POWER_MIN (5.0f)
 
-#define PLAYER_JAMP_HOLD_TIME (20)
+#define PLAYER_JUMP_POWER_MAX (15.0f)
+
+#define PLAYER_CHANGE_SPEED (0.2f)
 // 重力
 #define PLAYER_GRAVITY (0.4f)
 
@@ -50,6 +52,9 @@ PlayerData g_PrevPlayerData = { 0 };
 
 int g_JumpHoldCount = 0;
 bool g_IsJumpButtomHold = false;
+
+bool g_IsChargingJump = false;
+float g_JumpChargePower = PLAYER_JUMP_POWER_MIN;
 
 void StartPlayerAnimation(PlayerAnimationType anim);
 void UpdatePlayerAnimation();
@@ -132,33 +137,46 @@ void StepPlayer()
 
 	g_PlayerData.moveX = 0.0f;
 
-	g_PlayerData.moveY += PLAYER_GRAVITY;
-
-	if (IsInputKey(KEY_LEFT))
+	if (!g_IsChargingJump)
 	{
-		g_PlayerData.moveX = -PLAYER_MOVE_SPEED;
-		g_PlayerData.isTurn = true;
+		if (IsInputKey(KEY_LEFT))
+		{
+			g_PlayerData.moveX = -PLAYER_MOVE_SPEED;
+			g_PlayerData.isTurn = true;
+		}
+		else if (IsInputKey(KEY_RIGHT))
+		{
+			g_PlayerData.moveX = PLAYER_MOVE_SPEED;
+			g_PlayerData.isTurn = false;
+		}
 	}
-	else if(IsInputKey(KEY_RIGHT))
-	{
-		g_PlayerData.moveX = PLAYER_MOVE_SPEED;
-		g_PlayerData.isTurn = false;
-	}
-
+	// スペースを押すことでジャンプする力を溜める
 	if (IsTriggerKey(KEY_SPACE) && !g_PlayerData.isAir)
 	{
-		g_PlayerData.moveY = -PLAYER_JUMP_POWER;
-
-		g_PlayerData.isAir = true;
-
-		g_JumpHoldCount = 0;
+		g_IsChargingJump = true;
+		g_JumpChargePower = PLAYER_JUMP_POWER_MIN;
 	}
-
-	else if (IsInputKey(KEY_SPACE) && g_PlayerData.moveY < 0.0f && g_JumpHoldCount < PLAYER_JAMP_HOLD_TIME)
+	// チャージ中
+	if (g_IsChargingJump)
 	{
-		g_PlayerData.moveY -= PLAYER_JAMP_HOLD_POWER;
+		g_JumpChargePower += PLAYER_CHANGE_SPEED;
+		
+		if (g_JumpChargePower > PLAYER_JUMP_POWER_MAX)
+		{
+			g_JumpChargePower = PLAYER_JUMP_POWER_MAX;
+		}
+		if (IsReleaseKey(KEY_SPACE))
+		{
+			g_PlayerData.moveY = -g_JumpChargePower;
 
-		g_JumpHoldCount++;
+			g_PlayerData.isAir = true;
+
+			g_IsChargingJump = false;
+		}
+	}
+	else
+	{
+		g_PlayerData.moveY += PLAYER_GRAVITY;
 	}
 }
 

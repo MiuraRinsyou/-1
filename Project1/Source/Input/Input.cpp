@@ -60,3 +60,8 @@ bool IsTriggerKey(InputKey key)
 {
 	return (g_InputState & key) && !(g_PrevInputState & key);
 }
+
+bool IsReleaseKey(InputKey key)
+{
+	return !(g_InputState & key) && (g_PrevInputState & key);
+}
