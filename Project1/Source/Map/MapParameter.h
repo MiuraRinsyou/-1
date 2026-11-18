@@ -1,8 +1,8 @@
 #pragma once
 #include "DxLib.h"
 
-#define BLOCK_MAX (2048)
-#define MAP_CHIP_X_NUM (16)
+#define BLOCK_MAX (5000)
+#define MAP_CHIP_X_NUM (27)
 #define MAP_CHIP_Y_NUM (220)
 #define MAP_CHIP_WIDTH (50)
 #define MAP_CHIP_HEIGHT (50)

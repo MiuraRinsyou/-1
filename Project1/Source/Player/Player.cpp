@@ -24,8 +24,8 @@ const  PlayerAnimationParam PLAYER_ANIM_PARAM[PLAYER_ANIM_MAX] =
 
 
 // プレイヤーの性能
-#define PLAYER_DEFAULT_POS_X (100.0f)
-#define PLAYER_DEFAULT_POS_Y (600.0f)
+#define PLAYER_DEFAULT_POS_X (370.0f)
+#define PLAYER_DEFAULT_POS_Y (9900.0f)
 #define PLAYER_MOVE_SPEED (4.0f)
 
 // ジャンプ力
@@ -165,6 +165,9 @@ void StepPlayer()
 			}
 		}
 	}
+
+	if (g_WallReboundSpeed == 0.0f && !g_IsChargingJump)
+	{
 		if (!g_IsChargingJump)
 		{
 			if (!g_PlayerData.isAir)
@@ -236,7 +239,7 @@ void StepPlayer()
 		{
 			g_PlayerData.moveY += PLAYER_GRAVITY;
 		}
-	
+	}
 }
 
 void UpdatePlayer()
