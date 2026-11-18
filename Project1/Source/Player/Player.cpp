@@ -39,6 +39,10 @@ const  PlayerAnimationParam PLAYER_ANIM_PARAM[PLAYER_ANIM_MAX] =
 // 重力
 #define PLAYER_GRAVITY (0.4f)
 
+#define PLAEYR_WALL_REBOUND_POWER (3.0f)
+
+#define PLAYER_WALL_REBOUND_DECEL (0.2f)
+
 #define PLAYER_MAP_COLLISION_OFFSET (0.05f)
 
 #define PLAYER_BOX_COLLISION_OFFSET_X (24)
@@ -56,6 +60,7 @@ bool g_IsJumpButtomHold = false;
 
 bool g_IsChargingJump = false;
 float g_JumpChargePower = PLAYER_JUMP_POWER_MIN;
+float g_WallReboundSpeed = 0.0f;
 
 void StartPlayerAnimation(PlayerAnimationType anim);
 void UpdatePlayerAnimation();
@@ -138,77 +143,100 @@ void StepPlayer()
 
 	g_PlayerData.moveX = 0.0f;
 
-	if (!g_IsChargingJump)
+	if (g_WallReboundSpeed != 0.0f)
 	{
-		if (!g_PlayerData.isAir)
+		g_PlayerData.moveX = g_WallReboundSpeed;
+
+		if (g_WallReboundSpeed > 0.0f)
 		{
-			if (IsInputKey(KEY_LEFT))
+			g_WallReboundSpeed -= PLAYER_WALL_REBOUND_DECEL;
+			if (g_WallReboundSpeed < 0.0f)
 			{
-				g_PlayerData.moveX = -PLAYER_MOVE_SPEED;
-				g_PlayerData.isTurn = true;
-			}
-			else if (IsInputKey(KEY_RIGHT))
-			{
-				g_PlayerData.moveX = PLAYER_MOVE_SPEED;
-				g_PlayerData.isTurn = false;
+				g_WallReboundSpeed = 0.0f;
 			}
 		}
 		else
 		{
-			if (g_JumpDirection == -1)
+			g_WallReboundSpeed += PLAYER_WALL_REBOUND_DECEL;
+
+			if (g_WallReboundSpeed > 0.0f)
 			{
-				g_PlayerData.moveX = -PLAYER_MOVE_SPEED;
-				g_PlayerData.isTurn = true;
-			}
-			else if (g_JumpDirection == 1)
-			{
-				g_PlayerData.moveX = PLAYER_MOVE_SPEED;
-				g_PlayerData.isTurn = false;
+				g_WallReboundSpeed = 0.0f;
 			}
 		}
 	}
-	// スペースを押すことでジャンプする力を溜める
-	if (IsTriggerKey(KEY_SPACE) && !g_PlayerData.isAir)
-	{
-		g_IsChargingJump = true;
-		g_JumpChargePower = PLAYER_JUMP_POWER_MIN;
-
-	}
-	// チャージ中
-	if (g_IsChargingJump)
-	{
-		g_JumpChargePower += PLAYER_CHANGE_SPEED;
-		
-		if (g_JumpChargePower > PLAYER_JUMP_POWER_MAX)
+		if (!g_IsChargingJump)
 		{
-			g_JumpChargePower = PLAYER_JUMP_POWER_MAX;
-		}
-		if (IsReleaseKey(KEY_SPACE))
-		{
-			g_PlayerData.moveY = -g_JumpChargePower;
-
-			g_PlayerData.isAir = true;
-
-			if (IsInputKey(KEY_LEFT))
+			if (!g_PlayerData.isAir)
 			{
-				g_JumpDirection = -1;
-			}
-			else if (IsInputKey(KEY_RIGHT))
-			{
-				g_JumpDirection = 1;
+				if (IsInputKey(KEY_LEFT))
+				{
+					g_PlayerData.moveX = -PLAYER_MOVE_SPEED;
+					g_PlayerData.isTurn = true;
+				}
+				else if (IsInputKey(KEY_RIGHT))
+				{
+					g_PlayerData.moveX = PLAYER_MOVE_SPEED;
+					g_PlayerData.isTurn = false;
+				}
 			}
 			else
 			{
-				g_JumpDirection = 0;
+				if (g_JumpDirection == -1)
+				{
+					g_PlayerData.moveX = -PLAYER_MOVE_SPEED;
+					g_PlayerData.isTurn = true;
+				}
+				else if (g_JumpDirection == 1)
+				{
+					g_PlayerData.moveX = PLAYER_MOVE_SPEED;
+					g_PlayerData.isTurn = false;
+				}
 			}
-
-			g_IsChargingJump = false;
 		}
-	}
-	else
-	{
-		g_PlayerData.moveY += PLAYER_GRAVITY;
-	}
+		// スペースを押すことでジャンプする力を溜める
+		if (IsTriggerKey(KEY_SPACE) && !g_PlayerData.isAir)
+		{
+			g_IsChargingJump = true;
+			g_JumpChargePower = PLAYER_JUMP_POWER_MIN;
+
+		}
+		// チャージ中
+		if (g_IsChargingJump)
+		{
+			g_JumpChargePower += PLAYER_CHANGE_SPEED;
+
+			if (g_JumpChargePower > PLAYER_JUMP_POWER_MAX)
+			{
+				g_JumpChargePower = PLAYER_JUMP_POWER_MAX;
+			}
+			if (IsReleaseKey(KEY_SPACE))
+			{
+				g_PlayerData.moveY = -g_JumpChargePower;
+
+				g_PlayerData.isAir = true;
+
+				if (IsInputKey(KEY_LEFT))
+				{
+					g_JumpDirection = -1;
+				}
+				else if (IsInputKey(KEY_RIGHT))
+				{
+					g_JumpDirection = 1;
+				}
+				else
+				{
+					g_JumpDirection = 0;
+				}
+
+				g_IsChargingJump = false;
+			}
+		}
+		else
+		{
+			g_PlayerData.moveY += PLAYER_GRAVITY;
+		}
+	
 }
 
 void UpdatePlayer()
@@ -272,10 +300,14 @@ void PlayerHitNormalBlockX(MapChipData mapChipData)
 		if (player.moveX > 0.0f)
 		{
 			g_PlayerData.posX -= (x + w) - block->pos.x;
+
+			g_WallReboundSpeed = -PLAYER_WALL_REBOUND_DECEL;
 		}
 		else if (player.moveX < 0.0f)
 		{
 			g_PlayerData.posX += (block->pos.x + MAP_CHIP_WIDTH) - x;
+
+			g_WallReboundSpeed = PLAYER_WALL_REBOUND_DECEL;
 		}
 	}
 }
