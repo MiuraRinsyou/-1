@@ -51,6 +51,7 @@ PlayerData g_PlayerData = { 0 };
 PlayerData g_PrevPlayerData = { 0 };
 
 int g_JumpHoldCount = 0;
+int g_JumpDirection = 0;
 bool g_IsJumpButtomHold = false;
 
 bool g_IsChargingJump = false;
@@ -139,15 +140,31 @@ void StepPlayer()
 
 	if (!g_IsChargingJump)
 	{
-		if (IsInputKey(KEY_LEFT))
+		if (!g_PlayerData.isAir)
 		{
-			g_PlayerData.moveX = -PLAYER_MOVE_SPEED;
-			g_PlayerData.isTurn = true;
+			if (IsInputKey(KEY_LEFT))
+			{
+				g_PlayerData.moveX = -PLAYER_MOVE_SPEED;
+				g_PlayerData.isTurn = true;
+			}
+			else if (IsInputKey(KEY_RIGHT))
+			{
+				g_PlayerData.moveX = PLAYER_MOVE_SPEED;
+				g_PlayerData.isTurn = false;
+			}
 		}
-		else if (IsInputKey(KEY_RIGHT))
+		else
 		{
-			g_PlayerData.moveX = PLAYER_MOVE_SPEED;
-			g_PlayerData.isTurn = false;
+			if (g_JumpDirection == -1)
+			{
+				g_PlayerData.moveX = -PLAYER_MOVE_SPEED;
+				g_PlayerData.isTurn = true;
+			}
+			else if (g_JumpDirection == 1)
+			{
+				g_PlayerData.moveX = PLAYER_MOVE_SPEED;
+				g_PlayerData.isTurn = false;
+			}
 		}
 	}
 	// スペースを押すことでジャンプする力を溜める
@@ -155,6 +172,7 @@ void StepPlayer()
 	{
 		g_IsChargingJump = true;
 		g_JumpChargePower = PLAYER_JUMP_POWER_MIN;
+
 	}
 	// チャージ中
 	if (g_IsChargingJump)
@@ -170,6 +188,19 @@ void StepPlayer()
 			g_PlayerData.moveY = -g_JumpChargePower;
 
 			g_PlayerData.isAir = true;
+
+			if (IsInputKey(KEY_LEFT))
+			{
+				g_JumpDirection = -1;
+			}
+			else if (IsInputKey(KEY_RIGHT))
+			{
+				g_JumpDirection = 1;
+			}
+			else
+			{
+				g_JumpDirection = 0;
+			}
 
 			g_IsChargingJump = false;
 		}
