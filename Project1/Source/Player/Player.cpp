@@ -255,12 +255,12 @@ void PlayerHitNormalBlockX(MapChipData mapChipData)
 {
 	PlayerData player = g_PlayerData;
 	BlockData* block = mapChipData.data;
+
 	const float POS_OFFSET = PLAYER_MAP_COLLISION_OFFSET;
 	const float SIZE_OFFSET = PLAYER_MAP_COLLISION_OFFSET * 2;
 
 	player.isTurn = g_PrevPlayerData.isTurn;
 
-	player.posX = g_PlayerData.posX;
 	player.posY = g_PrevPlayerData.posY;
 
 	float x, y, w, h;
