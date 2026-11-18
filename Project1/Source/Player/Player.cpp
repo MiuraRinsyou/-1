@@ -33,7 +33,7 @@ const  PlayerAnimationParam PLAYER_ANIM_PARAM[PLAYER_ANIM_MAX] =
 
 #define PLAYER_JUMP_POWER_MIN (5.0f)
 
-#define PLAYER_JUMP_POWER_MAX (15.0f)
+#define PLAYER_JUMP_POWER_MAX (20.0f)
 
 #define PLAYER_CHANGE_SPEED (0.2f)
 // èdóÕ
