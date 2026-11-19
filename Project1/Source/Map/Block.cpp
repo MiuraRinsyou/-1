@@ -19,11 +19,13 @@ void InitBlock()
 
 void LoadBlock()
 {
-	g_BlockHandle[NORMAL_BLOCK] = LoadGraph("Data/Map/NormalBlock.png");
+	g_BlockHandle[NORMAL_BLOCK] = LoadGraph("Data/Map/Block1.png");
 
 	g_BlockHandle[SLOPE_RIGHT] = LoadGraph("Data/Map/SlopeRight.png");
 
 	g_BlockHandle[SLOPE_LEFT] = LoadGraph("Data/Map/SlopeLeft.png");
+	
+	g_BlockHandle[SOIL_BLOCK] = LoadGraph("Data/Map/SoilBlock.png");
 }
 
 void StartBlock()
