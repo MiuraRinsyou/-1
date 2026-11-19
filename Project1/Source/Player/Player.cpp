@@ -166,79 +166,78 @@ void StepPlayer()
 		}
 	}
 
-	if (g_WallReboundSpeed == 0.0f && !g_IsChargingJump)
+	if (!g_IsChargingJump)
 	{
-		if (!g_IsChargingJump)
+		if (!g_PlayerData.isAir)
 		{
-			if (!g_PlayerData.isAir)
+			if (IsInputKey(KEY_LEFT))
 			{
-				if (IsInputKey(KEY_LEFT))
-				{
-					g_PlayerData.moveX = -PLAYER_MOVE_SPEED;
-					g_PlayerData.isTurn = true;
-				}
-				else if (IsInputKey(KEY_RIGHT))
-				{
-					g_PlayerData.moveX = PLAYER_MOVE_SPEED;
-					g_PlayerData.isTurn = false;
-				}
+				g_PlayerData.moveX = -PLAYER_MOVE_SPEED;
+				
+				g_PlayerData.isTurn = true;
 			}
-			else
+			else if (IsInputKey(KEY_RIGHT))
 			{
-				if (g_JumpDirection == -1)
-				{
-					g_PlayerData.moveX = -PLAYER_MOVE_SPEED;
-					g_PlayerData.isTurn = true;
-				}
-				else if (g_JumpDirection == 1)
-				{
-					g_PlayerData.moveX = PLAYER_MOVE_SPEED;
-					g_PlayerData.isTurn = false;
-				}
-			}
-		}
-		// スペースを押すことでジャンプする力を溜める
-		if (IsTriggerKey(KEY_SPACE) && !g_PlayerData.isAir)
-		{
-			g_IsChargingJump = true;
-			g_JumpChargePower = PLAYER_JUMP_POWER_MIN;
+				g_PlayerData.moveX = PLAYER_MOVE_SPEED;
 
-		}
-		// チャージ中
-		if (g_IsChargingJump)
-		{
-			g_JumpChargePower += PLAYER_CHANGE_SPEED;
-
-			if (g_JumpChargePower > PLAYER_JUMP_POWER_MAX)
-			{
-				g_JumpChargePower = PLAYER_JUMP_POWER_MAX;
-			}
-			if (IsReleaseKey(KEY_SPACE))
-			{
-				g_PlayerData.moveY = -g_JumpChargePower;
-
-				g_PlayerData.isAir = true;
-
-				if (IsInputKey(KEY_LEFT))
-				{
-					g_JumpDirection = -1;
-				}
-				else if (IsInputKey(KEY_RIGHT))
-				{
-					g_JumpDirection = 1;
-				}
-				else
-				{
-					g_JumpDirection = 0;
-				}
-
-				g_IsChargingJump = false;
+				g_PlayerData.isTurn = false;
 			}
 		}
 		else
 		{
-			g_PlayerData.moveY += PLAYER_GRAVITY;
+			if (g_JumpDirection == -1)
+			{
+				g_PlayerData.moveX = -PLAYER_MOVE_SPEED;
+	
+				g_PlayerData.isTurn = true;
+			}
+			else if (g_JumpDirection == 1)
+			{
+				g_PlayerData.moveX = PLAYER_MOVE_SPEED;
+
+				g_PlayerData.isTurn = false;	
+			}
 		}
+	}
+	// スペースを押すことでジャンプする力を溜める
+	if (IsTriggerKey(KEY_SPACE) && !g_PlayerData.isAir)
+	{
+		g_IsChargingJump = true;
+	
+		g_JumpChargePower = PLAYER_JUMP_POWER_MIN;
+	}
+	// チャージ中
+	if (g_IsChargingJump)
+	{
+		g_JumpChargePower += PLAYER_CHANGE_SPEED;
+
+		if (g_JumpChargePower > PLAYER_JUMP_POWER_MAX)
+		{
+			g_JumpChargePower = PLAYER_JUMP_POWER_MAX;
+		}
+		if (IsReleaseKey(KEY_SPACE))
+		{
+		g_PlayerData.moveY = -g_JumpChargePower;
+
+		g_PlayerData.isAir = true;
+		if (IsInputKey(KEY_LEFT))
+		{
+			g_JumpDirection = -1;
+		}
+		else if (IsInputKey(KEY_RIGHT))
+		{
+			g_JumpDirection = 1;
+		}
+		else
+		{
+			g_JumpDirection = 0;
+		}
+		g_IsChargingJump = false;
+		}
+	}
+	else
+	{
+		g_PlayerData.moveY += PLAYER_GRAVITY;
 	}
 }
 
