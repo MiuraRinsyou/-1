@@ -24,7 +24,7 @@ const  PlayerAnimationParam PLAYER_ANIM_PARAM[PLAYER_ANIM_MAX] =
 
 
 // プレイヤーの性能
-#define PLAYER_DEFAULT_POS_X (370.0f)
+#define PLAYER_DEFAULT_POS_X (600.0f)
 #define PLAYER_DEFAULT_POS_Y (9900.0f)
 #define PLAYER_MOVE_SPEED (4.0f)
 
@@ -281,69 +281,69 @@ PlayerData GetPlayer()
 	return g_PlayerData;
 }
 
-void PlayerHitNormalBlockX(MapChipData mapChipData)
-{
-	PlayerData player = g_PlayerData;
-	BlockData* block = mapChipData.data;
-
-	const float POS_OFFSET = PLAYER_MAP_COLLISION_OFFSET;
-	const float SIZE_OFFSET = PLAYER_MAP_COLLISION_OFFSET * 2;
-
-	player.isTurn = g_PrevPlayerData.isTurn;
-
-	player.posY = g_PrevPlayerData.posY;
-
-	float x, y, w, h;
-	CalcBoxCollision(player, x, y, w, h);
-
-	if (CheckSquareSquare(x + POS_OFFSET, y + POS_OFFSET, w - SIZE_OFFSET, h - SIZE_OFFSET,
-		block->pos.x, block->pos.y, MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
+	void PlayerHitNormalBlockX(MapChipData mapChipData)
 	{
-		if (player.moveX > 0.0f)
-		{
-			g_PlayerData.posX -= (x + w) - block->pos.x;
+		PlayerData player = g_PlayerData;
+		BlockData* block = mapChipData.data;
 
-			g_WallReboundSpeed = -PLAYER_WALL_REBOUND_DECEL;
-		}
-		else if (player.moveX < 0.0f)
-		{
-			g_PlayerData.posX += (block->pos.x + MAP_CHIP_WIDTH) - x;
+		const float POS_OFFSET = PLAYER_MAP_COLLISION_OFFSET;
+		const float SIZE_OFFSET = PLAYER_MAP_COLLISION_OFFSET * 2;
 
-			g_WallReboundSpeed = PLAYER_WALL_REBOUND_DECEL;
+		player.isTurn = g_PrevPlayerData.isTurn;
+
+		player.posY = g_PrevPlayerData.posY;
+
+		float x, y, w, h;
+		CalcBoxCollision(player, x, y, w, h);
+
+		if (CheckSquareSquare(x + POS_OFFSET, y + POS_OFFSET, w - SIZE_OFFSET, h - SIZE_OFFSET,
+			block->pos.x, block->pos.y, MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
+		{
+			if (player.moveX > 0.0f)
+			{
+				g_PlayerData.posX -= (x + w) - block->pos.x;
+				g_PlayerData.moveX = 0.0f;
+				g_WallReboundSpeed = -PLAYER_WALL_REBOUND_DECEL;
+			}
+			else if (player.moveX < 0.0f)
+			{
+				g_PlayerData.posX += (block->pos.x + MAP_CHIP_WIDTH) - x;
+				g_PlayerData.moveX = 0.0f;
+				g_WallReboundSpeed = PLAYER_WALL_REBOUND_DECEL;
+			}
 		}
 	}
-}
 
-void PlayerHitNormalBlockY(MapChipData mapChipData)
-{
-	PlayerData player = g_PlayerData;
-	BlockData* block = mapChipData.data;
-	const float POS_OFFSET = PLAYER_MAP_COLLISION_OFFSET;
-	const float SIZE_OFFSET = PLAYER_MAP_COLLISION_OFFSET * 2;
+	void PlayerHitNormalBlockY(MapChipData mapChipData)
+	{
+		PlayerData player = g_PlayerData;
+		BlockData* block = mapChipData.data;
+		const float POS_OFFSET = PLAYER_MAP_COLLISION_OFFSET;
+		const float SIZE_OFFSET = PLAYER_MAP_COLLISION_OFFSET * 2;
 
-	player.isTurn = g_PrevPlayerData.isTurn;
+		player.isTurn = g_PrevPlayerData.isTurn;
 
-	float x, y, w, h;
-	CalcBoxCollision(player, x, y, w, h);
+		float x, y, w, h;
+		CalcBoxCollision(player, x, y, w, h);
 	
-	if (CheckSquareSquare(x + POS_OFFSET, y + POS_OFFSET, w - SIZE_OFFSET, h - SIZE_OFFSET,
-		block->pos.x, block->pos.y, MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
-	{
-		g_PlayerData.moveY = 0.0f;
+		if (CheckSquareSquare(x + POS_OFFSET, y + POS_OFFSET, w - SIZE_OFFSET, h - SIZE_OFFSET,
+			block->pos.x, block->pos.y, MAP_CHIP_WIDTH, MAP_CHIP_HEIGHT))
+		{
+			g_PlayerData.moveY = 0.0f;
 
-		if (player.moveY > 0.0f)
-		{
-			g_PlayerData.posY -= (y + h) - block->pos.y;
-			g_PlayerData.moveY = 0.0f;
-			g_PlayerData.isAir = false;
-		}
-		else if (player.moveY < 0.0f)
-		{
-			g_PlayerData.posY += (block->pos.y + MAP_CHIP_WIDTH) - y;
-			g_PlayerData.moveY = 0.0f;
+			if (player.moveY > 0.0f)
+			{
+				g_PlayerData.posY -= (y + h) - block->pos.y;
+				g_PlayerData.moveY = 0.0f;
+				g_PlayerData.isAir = false;
+			}
+			else if (player.moveY < 0.0f)
+			{
+				g_PlayerData.posY += (block->pos.y + MAP_CHIP_HEIGHT) - y;
+				g_PlayerData.moveY = 0.0f;
+			}
 		}
 	}
-}
 
 void PlayerHitSlope(MapChipType type, int tileX, int tileY)
 {
@@ -353,21 +353,31 @@ void PlayerHitSlope(MapChipType type, int tileX, int tileY)
 
 	CalcBoxCollision(player, x, y, w, h);
 
-	float footX = x + w / 2.0f;
 	float footY = y + h;
+
+	float leftFootX = x;
+	float rightFootX = x + w;
 
 	float tileLeft = tileX * MAP_CHIP_WIDTH;
 	float tileRight = tileLeft + MAP_CHIP_WIDTH;
 
-	if (footX<tileLeft || footX>tileRight)
+	if (rightFootX<tileLeft || leftFootX>tileRight)
 		return;
+
+	float footX = x + w / 2.0f;
+
+	if (footX < tileLeft)
+		footX = tileLeft;
+
+	if (footX > tileRight)
+		footX = tileRight;
 
 	float slopeY = GetSlopeSurfaceY(type, tileX, tileY, footX);
 
 	float prevX, prevY, prevW, prevH;
 
 	CalcBoxCollision(g_PrevPlayerData, prevX, prevY, prevW, prevH);
-	float prevFootX = prevX + prevW / 2.0f;
+
 	float prevFootY = prevY + prevH;
 
 	bool isGrounded = !g_PrevPlayerData.isAir && g_PlayerData.moveY >= 0.0f;
