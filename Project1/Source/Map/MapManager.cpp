@@ -108,14 +108,10 @@ void CheckMapPlayerCollision()
 			switch (mapChipData.mapChip)
 			{
 			case NORMAL_BLOCK:
-				PlayerHitNormalBlockY(mapChipData);
-				break;
 			case SOIL_BLOCK:
 				PlayerHitNormalBlockY(mapChipData);
 				break;
 			case SLOPE_RIGHT:
-				PlayerHitSlope((MapChipType)mapChipData.mapChip, x, y);
-				break;
 			case SLOPE_LEFT:
 				PlayerHitSlope((MapChipType)mapChipData.mapChip, x, y);
 				break;

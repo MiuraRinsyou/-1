@@ -26,6 +26,8 @@ void LoadBlock()
 	g_BlockHandle[SLOPE_LEFT] = LoadGraph("Data/Map/SlopeLeft.png");
 	
 	g_BlockHandle[SOIL_BLOCK] = LoadGraph("Data/Map/SoilBlock.png");
+
+	g_BlockHandle[GAP_SOIL_BLOCK] = LoadGraph("Data/Map/SoilBlock1.png");
 }
 
 void StartBlock()

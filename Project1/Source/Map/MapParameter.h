@@ -18,6 +18,8 @@ enum MapChipType
 	SLOPE_LEFT,
 	// “y‚Ì“¹
 	SOIL_BLOCK,
+	// Œ„ŠÔ‚¤‚ß
+	GAP_SOIL_BLOCK,
 	BLOCK_TYPE_MAX,
 };
 

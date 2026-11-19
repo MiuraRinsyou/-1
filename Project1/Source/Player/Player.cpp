@@ -350,20 +350,21 @@ void PlayerHitSlope(MapChipType type, int tileX, int tileY)
 	PlayerData player = g_PlayerData;
 
 	float x, y, w, h;
-
 	CalcBoxCollision(player, x, y, w, h);
 
 	float footY = y + h;
 
-	float leftFootX = x;
-	float rightFootX = x + w;
-
 	float tileLeft = tileX * MAP_CHIP_WIDTH;
 	float tileRight = tileLeft + MAP_CHIP_WIDTH;
 
-	if (rightFootX<tileLeft || leftFootX>tileRight)
+	// プレイヤーの足元が坂の範囲と重なっているか
+	float leftFootX = x;
+	float rightFootX = x + w;
+
+	if (rightFootX <= tileLeft || leftFootX >= tileRight)
 		return;
 
+	// 坂と重なっている範囲に足元の中央を収める
 	float footX = x + w / 2.0f;
 
 	if (footX < tileLeft)
@@ -375,21 +376,20 @@ void PlayerHitSlope(MapChipType type, int tileX, int tileY)
 	float slopeY = GetSlopeSurfaceY(type, tileX, tileY, footX);
 
 	float prevX, prevY, prevW, prevH;
-
 	CalcBoxCollision(g_PrevPlayerData, prevX, prevY, prevW, prevH);
-
+	
 	float prevFootY = prevY + prevH;
-
 	bool isGrounded = !g_PrevPlayerData.isAir && g_PlayerData.moveY >= 0.0f;
 
-	bool isLanding = g_PrevPlayerData.moveY >= 0.0f && prevFootY <= slopeY && footY >= slopeY;
+	bool isLanding =
+		g_PrevPlayerData.moveY >= 0.0f &&
+		prevFootY <= slopeY &&
+		footY >= slopeY;
 
 	if (isGrounded || isLanding)
 	{
 		g_PlayerData.posY += slopeY - footY;
-
 		g_PlayerData.moveY = 0.0f;
-
 		g_PlayerData.isAir = false;
 	}
 }
