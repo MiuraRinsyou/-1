@@ -1,7 +1,7 @@
 #include "DxLib.h"
 #include "BackGround.h"
 
-#define BACK_GROUND_WIDTH (1600)
+#define BACK_GROUND_WIDTH (1800)
 #define BACK_GROUND_HEIGHT (900)
 
 struct BackGroundData
@@ -19,7 +19,7 @@ void InitBackGround()
 	for (int i = 0; i < BACK_GROUND_LAYER_MAX; i++)
 	{
 		g_BackGroundData[i].handle = 0;
-		g_BackGroundData[i].posX = 0.0f;
+		g_BackGroundData[i].posX = -150.0f;
 		g_BackGroundData[i].posY = 0.0f;
 		g_BackGroundData[i].moveX = 0.0f;
 		g_BackGroundData[i].moveY = 0.0f;
