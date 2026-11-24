@@ -14,10 +14,10 @@ void InitCamera()
 
 void StepCamera()
 {
-	/*if (IsInputKey(KEY_D))
+	if (IsInputKey(KEY_D))
 	{
-		g_CameraData.posY += DEBUG_CAMERA_SPEED;
-	}*/
+		g_CameraData.pos.y += DEBUG_CAMERA_SPEED;
+	}
 
 	PlayerData player = GetPlayer();
 

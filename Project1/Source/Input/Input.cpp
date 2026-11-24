@@ -33,7 +33,7 @@ void UpdateInput()
 	{
 		g_InputState |= KEY_SPACE;
 	}
-	if (CheckHitKey(KEY_INPUT_D))
+	if (CheckHitKey(KEY_INPUT_UP))
 	{
 		g_InputState |= KEY_D;
 	}
