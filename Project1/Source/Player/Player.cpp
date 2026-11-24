@@ -24,7 +24,7 @@ const  PlayerAnimationParam PLAYER_ANIM_PARAM[PLAYER_ANIM_MAX] =
 
 
 // プレイヤーの性能
-#define PLAYER_DEFAULT_POS_X (600.0f)
+#define PLAYER_DEFAULT_POS_X (763.0f)
 #define PLAYER_DEFAULT_POS_Y (9900.0f)
 #define PLAYER_MOVE_SPEED (4.0f)
 
