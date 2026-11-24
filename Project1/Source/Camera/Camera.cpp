@@ -21,8 +21,7 @@ void StepCamera()
 
 	PlayerData player = GetPlayer();
 
-	g_CameraData.pos.x = player.posX - 700.0f;
-	g_CameraData.pos.y = player.posY - 600.0f;
+	g_CameraData.pos.y = player.posY - 650.0f;
 }
 
 void DrawCamera()
