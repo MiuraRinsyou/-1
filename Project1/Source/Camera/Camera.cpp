@@ -28,7 +28,6 @@ void StepCamera()
 void DrawCamera()
 {
 
-	//DrawFormatString(0, 0, GetColor(255, 255, 255), "ƒJƒƒ‰‚ÌÀ•W=[%f. %f]", g_CameraData.pos.x, g_CameraData.pos.y);
 }
 
 CameraData GetCamera()
