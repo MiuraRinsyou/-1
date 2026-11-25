@@ -3,7 +3,7 @@
 
 #define BLOCK_MAX (9000)
 #define MAP_CHIP_X_NUM (32)
-#define MAP_CHIP_Y_NUM (204)
+#define MAP_CHIP_Y_NUM (210)
 #define MAP_CHIP_WIDTH (50)
 #define MAP_CHIP_HEIGHT (50)
 
