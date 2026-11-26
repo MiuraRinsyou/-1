@@ -35,10 +35,37 @@ struct BlockData
 	int handle;
 	MapChipType type;
 	VECTOR pos;
+	float moveX;
+	float moveY;
+	float width;
+	float height;
+	float startPosX;
+	float startPosY;
+	float prevPosX;
+	float prevPosY;
 };
 
 struct MapChipData
 {
 	int mapChip;
+	bool isCollision;
+	int type;
 	BlockData* data;
+};
+
+struct BlockMasterData
+{
+	int width;
+	int height;
+};
+
+static const BlockMasterData BLOCK_MASTER_DATA[BLOCK_TYPE_MAX] =
+{
+	{0,0},
+	{50,50},
+	{50,50},
+	{50,50},
+	{50,100},
+	{},
+	{},
 };

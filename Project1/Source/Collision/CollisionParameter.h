@@ -1,5 +1,6 @@
 #pragma once
-#include "DxLib.h"
+
+struct  BlockData;
 
 struct Body
 {
@@ -8,4 +9,7 @@ struct Body
 	VECTOR move;
 	float width;
 	float height;
+	float prevPosX;
+	float prevPosY;
+	const BlockData* groundBlock;
 };
