@@ -12,14 +12,20 @@ enum MapChipType
 	MAP_CHIP_NONE = 0,
 	// 草の道
 	NORMAL_BLOCK,
-	// 右斜めの坂
+	// 右斜め坂
 	SLOPE_RIGHT,
-	// 左斜めの坂
+	// 左斜め坂
 	SLOPE_LEFT,
 	// 土の道
 	SOIL_BLOCK,
 	// 隙間うめ
 	GAP_SOIL_BLOCK,
+	// 雪の地面
+	SNOW_BLOCK,
+	// 雪の右斜め坂
+	SNOW_RIGHT,
+	// 雪の左斜め坂
+	SNOW_LEFT,
 	BLOCK_TYPE_MAX,
 };
 
