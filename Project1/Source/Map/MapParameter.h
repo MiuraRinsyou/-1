@@ -34,7 +34,8 @@ struct BlockData
 	bool active;
 	int handle;
 	MapChipType type;
-	VECTOR pos;
+	float posX;
+	float posY;
 	float moveX;
 	float moveY;
 	float width;
